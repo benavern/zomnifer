@@ -1,0 +1,94 @@
+$primary-color: #009688
+$black-color: #363636
+$white-color: #e4e4e4
+$transparent: rgba($white-color, .2)
+$shadow: 0 0 1rem $black-color
+
+
+
+*, *:before, *:after
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+html,
+body
+    width: 100%
+    height: 100%
+    font-size: 18px
+
+body
+    overflow-y: auto
+    background-color: $black-color
+    color: $white-color
+    font-family: sans-serif
+    line-height: 1.6
+    padding: 4rem 1rem 1rem
+
+header
+    background-color: $primary-color
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    text-align: center
+    box-shadow: $shadow
+
+a
+    color: inherit
+
+.nav
+    font-size: 0
+    .nav-item
+        font-size: 1rem
+        display: inline-block
+        padding: 1rem 2rem
+        color: inherit
+        text-decoration: none
+        &.active,
+        &:hover
+            background-color: $transparent
+
+.container
+    width: 600px
+    max-width: 100%
+    margin: 0 auto
+
+.box
+    background-color: $transparent
+    border-radius: .1rem
+    box-shadow: $shadow 
+    margin: 2rem 
+
+.text-center
+    text-align: center
+
+.big
+    font:
+        size: 4rem
+        weight: 900
+    
+
+.btn
+    display: inline-block
+    padding: .3em 1em
+    border-radius: .1em
+    border: 1px solid $primary-color
+    background-color: $transparent
+    color: $primary-color
+    text-decoration: none
+    box-shadow: $shadow
+
+    transition: all .3s
+
+    &:hover
+        background-color: $primary-color
+        color: $white-color
+
+.route
+    display: none
+    opacity: 0
+    transition: opacity .3s
+    &.active
+        display: block
+        opacity: 1
