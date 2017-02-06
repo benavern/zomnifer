@@ -6,10 +6,10 @@ const mb = require('menubar')({
 mb.on('ready', function ready () {
   console.log('app is ready');
   // your app code here
-  mb.setOption('width', 610);
-  mb.setOption('minWidth', 550);
-  mb.setOption('height', 460);
-  mb.setOption('minHeight', 400);
+  mb.setOption('width', 620);
+  mb.setOption('minWidth', 570);
+  mb.setOption('height', 525);
+  mb.setOption('minHeight', 510);
   
   mb.setOption('tooltip', 'Zomnifer');  
 

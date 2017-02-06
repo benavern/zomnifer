@@ -37,20 +37,22 @@ body
     font-family: sans-serif
     line-height: 1.6
     padding: 4rem 1rem 2rem
-        
 
 header
     background-color: $primary-color
     position: fixed
-    top: 0
-    left: 0
-    width: 100%
+    top: 1px // so that you still can change window dimensions with mouse
+    left: 1px
+    right: 1px
     text-align: center
     box-shadow: $shadow
     -webkit-app-region: drag
 
 a
     color: $primary-color
+.welcome
+    color: $transparent
+    text-shadow: $shadow
 
 textarea,
 input
@@ -95,7 +97,7 @@ input
     background-color: $transparent
     border-radius: .1rem
     box-shadow: $shadow 
-    margin: 2rem 
+    margin: 1rem 2rem 
 
 .text-center
     text-align: center
@@ -105,7 +107,8 @@ input
         size: 4rem
         weight: 900
     
-
+.btn-wrapper
+    margin: 1rem 0
 .btn
     display: inline-block
     padding: .3em 1em
@@ -155,27 +158,22 @@ input
     &.icon-lg
         font-size: 1.3rem
     
-
     &.icon-off:before
         content: "A"
-
     &.icon-sleep:before
         content: "B"
-
     &.icon-message:before
         content: "C"
-
     &.icon-play:before
         content: "D"
-
     &.icon-stop:before
         content: "E"
-        
     &.icon-up:before
         content: "F"
-        
     &.icon-down:before
         content: "G"
+    &.icon-question:before
+        content: "H"
 
 .stopwatch
     .stopwatch--item
