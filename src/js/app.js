@@ -6,44 +6,6 @@ window.$$ = function(sel) {
     return [].slice.call(document.querySelectorAll(sel));
 }
 
-
-// $$('section.route').forEach( function(section){
-//     // stopwatch
-//     section.querySelectorAll('.stopwatch .stopwatch--item').forEach(function(item) {
-//         var display  = item.querySelector('.display');
-//         var plus  = item.querySelector('.plus');
-//         var less  = item.querySelector('.less');
-//         var value = +display.innerText;
-
-//         plus.addEventListener('click', function(e) {
-//             e.preventDefault();
-//             value = (item.classList.contains('sec') && value >= 59) ? 0 : value + 1;
-//             display.innerText = (value >= 10) ? ""+value : "0"+value
-//         })
-
-//         less.addEventListener('click', function(e) {
-//             e.preventDefault();
-//             value = (value <= 0) ? 0 : value - 1;
-//             display.innerText = (value >= 10) ? ""+value : "0"+value
-//         })
-//     })
-
-//     // start / stop
-
-//     section.querySelectorAll('.btn-wrapper .btn').forEach(function(btn) {
-//         btn.addEventListener('click', function(e) {
-//             e.preventDefault();
-//             var action = this.classList.contains('start') ? 'start' : 'stop';
-//             var value = section.querySelector('.stopwatch').innerText;
-//             value = value.split(':').map(function(x) {return +x})
-//             value = (60*value[0]+value[1])*1000;
-//             alert(action + ' in ' + value + 'ms');
-//         })
-//     })
-
-// })
-
-
 /**
  * Timer functionnality
  */
@@ -101,12 +63,6 @@ var Timer = (function() {
             return _value.minutes;
         },
 
-        start : function() {
-            var appTimer = this;
-            _timer = setInterval(appTimer.decrement, 1000);
-            return this;
-        },
-
         decrement: function() {
             var appTimer = this;
             if(_value.seconds <= 0 && _value.minutes > 0) {
@@ -118,8 +74,14 @@ var Timer = (function() {
             }
         },
 
+        start : function() {
+            var appTimer = this;
+            _timer = setInterval(appTimer.decrement.bind(appTimer), 1000);
+            return this;
+        },
+
         stop : function() {
-            learInterval(_timer);
+            clearInterval(_timer);
             return this;
         },
 
