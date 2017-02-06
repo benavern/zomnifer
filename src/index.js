@@ -10,6 +10,8 @@ mb.on('ready', function ready () {
   mb.setOption('minWidth', 550);
   mb.setOption('height', 460);
   mb.setOption('minHeight', 400);
+  
+  mb.setOption('tooltip', 'Zomnifer');  
 
 })
 
