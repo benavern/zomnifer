@@ -10,14 +10,17 @@ window.$$ = function(sel) {
  * Timer functionnality
  */
 var Timer = (function() {
+    // value with separated values
     var _value = {
         minutes : 0,
         seconds: 0
     }
-
+    // computed value in seconds
     var _computedValue = 0;
+    // used for the setInterval 
     var _timer = null;
 
+    // the timer elements 
     var elements = {
         minutes : {
             plus : $('.stopwatch .stopwatch--item.min .plus'),
@@ -31,15 +34,19 @@ var Timer = (function() {
         },
     }
 
- 
+    /**
+     * Calculate the computed value of the updated _value
+     * display the new value on the timer element
+     */
     var _compute = function() {
         _computedValue = _value.seconds + (60 * _value.minutes);
         elements.minutes.display.innerText = (_value.minutes >= 10) ? ""+_value.minutes : "0"+_value.minutes;
         elements.seconds.display.innerText = (_value.seconds >= 10) ? ""+_value.seconds : "0"+_value.seconds;
-        console.log(_value, _computedValue)
+        console.log('[COUNT]', _value, _computedValue)
     }
 
     return {
+        // getters & setters
         setSeconds : function(x) {
             _value.seconds = x;
             _compute();
@@ -63,7 +70,8 @@ var Timer = (function() {
             return _value.minutes;
         },
 
-        decrement: function() {
+        // increment & decrement methods
+        decrementSeconds: function() {
             var appTimer = this;
             if(_value.seconds <= 0 && _value.minutes > 0) {
                 appTimer.setMinutes(_value.minutes - 1);
@@ -74,47 +82,58 @@ var Timer = (function() {
             }
         },
 
-        start : function() {
+        incrementSeconds: function() {
             var appTimer = this;
-            _timer = setInterval(appTimer.decrement.bind(appTimer), 1000);
+            if(_value.seconds >= 59) {
+                appTimer.setMinutes(_value.minutes + 1);
+                appTimer.setSeconds(0);
+            }
+            else {
+                appTimer.setSeconds(_value.seconds + 1);
+            }
+        },
+        
+        decrementMinutes: function() {
+            var appTimer = this;
+            appTimer.setMinutes((_value.minutes <= 0 ) ? 0 : _value.minutes - 1);
+        },
+
+        incrementMinutes: function() {
+            var appTimer = this;
+            appTimer.setMinutes(_value.minutes + 1);
+        },
+
+        // start timer and call stop + callback when finished
+        start : function(callback) {
+            var appTimer = this;
+            _timer = setInterval(function() {
+
+                if(_computedValue > 0) {
+                    console.log('[TIME LEFT]', _computedValue);
+                    appTimer.decrementSeconds.call(appTimer);
+                }
+                else {
+                    appTimer.stop();
+                    console.log('[END OF TIME]', _computedValue);
+                    callback();
+                }
+            }, 1000);
             return this;
         },
 
+        // stop timer
         stop : function() {
             clearInterval(_timer);
             return this;
         },
 
+        // init timer with the buttons listeners
         init : function() {
             var appTimer = this;
-            elements.minutes.plus.addEventListener('click', function(e) {
-                e.preventDefault();
-                appTimer.setMinutes(_value.minutes + 1);
-            })
-            elements.minutes.less.addEventListener('click', function(e) {
-                e.preventDefault();
-                appTimer.setMinutes((_value.minutes <= 0 ) ? 0 : _value.minutes - 1);
-            })
-            elements.seconds.plus.addEventListener('click', function(e) {
-                e.preventDefault();
-                if(_value.seconds >= 59) {
-                    appTimer.setMinutes(_value.minutes + 1);
-                    appTimer.setSeconds(0);
-                }
-                else {
-                    appTimer.setSeconds(_value.seconds + 1);
-                }
-            })
-            elements.seconds.less.addEventListener('click', function(e) {
-                e.preventDefault();
-                if(_value.seconds <= 0 && _value.minutes > 0) {
-                    appTimer.setMinutes(_value.minutes - 1);
-                    appTimer.setSeconds(59);
-                }
-                else {
-                    appTimer.setSeconds((_value.seconds <= 0) ? 0 : _value.seconds - 1);
-                }
-            })
+            elements.minutes.plus.addEventListener('click', appTimer.incrementMinutes.bind(appTimer));
+            elements.minutes.less.addEventListener('click', appTimer.decrementMinutes.bind(appTimer));
+            elements.seconds.plus.addEventListener('click', appTimer.incrementSeconds.bind(appTimer));
+            elements.seconds.less.addEventListener('click', appTimer.decrementSeconds.bind(appTimer));
 
             return this;
         }
@@ -128,24 +147,40 @@ var Timer = (function() {
  */
 var Zomnifer = (function() {
 
+    // 3 different actions
     var _actions = {
         '#off': {
-            title: 'Switch off'
+            title: 'Switch off',
+            action: function() {
+                alert('SWITCH OFF');
+            }
         },
         '#sleep': {
-            title: 'Sleep'
+            title: 'Sleep',
+            action: function() {
+                alert('SLEEP');
+            }
         },
         '#message': {
-            title: 'Message'
+            title: 'Message',
+            message: '',
+            action: function() {
+                alert(this.message);
+            }
         }
     }
 
+    // timer shortcut
     var _timer = null;
 
+    // textArea element used for the message action
     var _textArea = $('section#app textarea');
 
-    var activeState = null;
-    var isCounting = false;
+    // the action that will be fired
+    var _activeState = null;
+
+    // is the timer started ?
+    var _isCounting = false;
 
 
     /** 
@@ -167,12 +202,18 @@ var Zomnifer = (function() {
 
     }
 
+    // update message on input tiped
+    var _updateMessage = function()  {
+        _actions['#message'].message = _textArea.value;
+        console.log('[MESSAGE]', _actions['#message'].message);
+    }
+
     return {
-    /**
-     * Show a specific section & activate corresponding menu item
-     */
+        /**
+         * Show a specific section & activate corresponding menu item
+         */
         navigate : function(sel) {
-            if(!isCounting) {
+            if(!_isCounting) {
                 _activeState = sel;
                 _hideRoutes(sel);
                 if(sel == '#welcome') {
@@ -192,13 +233,31 @@ var Zomnifer = (function() {
             }
         },
 
+        /**
+         * Start timer
+         */
         start: function() {
-            isCounting = true;
-            _timer.start();
+            var app = this;
+            _isCounting = true;
+            _textArea.setAttribute('readonly', true);
+            $$('header a:not(.active)').forEach(function(navLink) {
+                navLink.style.display = 'none';
+            })
+            _timer.start(function() {
+                _actions[_activeState].action()
+                app.stop();
+            });
         },
 
+        /**
+         * Stop timer
+         */
         stop: function() {
-            isCounting = false;            
+            _textArea.setAttribute('readonly', false);
+            $$('header a:not(.active)').forEach(function(navLink) {
+                navLink.style.display = 'inline-block';
+            })
+            _isCounting = false;
             _timer.stop()
         },
 
@@ -210,7 +269,7 @@ var Zomnifer = (function() {
         init : function() {
             var app = this;
 
-            // router
+            // init router
             $$('header a').forEach(function(navLink) {
                 navLink.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -218,12 +277,19 @@ var Zomnifer = (function() {
                 })
             })
 
-            $('.btn-wrapper .btn.start').addEventListener('click', app.start)
-            $('.btn-wrapper .btn.stop').addEventListener('click', app.stop)
+            // start / stop
+            $('.btn-wrapper .btn.start').addEventListener('click', app.start.bind(app));
+            $('.btn-wrapper .btn.stop').addEventListener('click', app.stop.bind(app));
 
+            // message update
+            _textArea.addEventListener('input', _updateMessage);
+
+            // init timer
+            _timer = Timer.init();
+
+            // init app
             this.navigate('#welcome');
 
-            _timer = Timer.init();
         }
     }
 })();

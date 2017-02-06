@@ -1,6 +1,6 @@
 # Zomnifer
 
-<div style="text-align: center; color: orange; font-variant: small-caps; font-size: 26px; margin: 60px 0"> Work in progress ... </div>
+### *Work in progress ...*
 
 ![SCREENSHOT](./zomnifer.gif)
 
