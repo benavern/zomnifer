@@ -2,11 +2,11 @@
   "name": "zomnifer",
   "version": "0.0.1",
   "description": "electron RS somnifero inspiration",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "sass": "node-sass --output-style=compressed src/sass/ -o dist/css/",
+    "sass": "node-sass --source-map=true  --output-style=compressed src/sass/ -o dist/css/",
     "sass:watch": "npm run sass -- -w",
-    "js:front": "browserify src/js/app.js -o dist/js/app.js && uglifyjs -v --source-map dist/js/app.min.js.map dist/js/app.js -o dist/js/app.min.js",
+    "js:front": "browserify --ignore-missing --no-builtins --no-commondir --insert-global-vars=\"global\" --no-browser-field  src/js/app.js -o dist/js/app.js && uglifyjs -v --source-map dist/js/app.min.js.map dist/js/app.js -o dist/js/app.min.js",
     "js:front:watch": "onchange src/js/**/*.js -v -- npm run js:front",
     "copy:fonts": "copyfiles -f src/fonts/*.{ttf,otf,woff,svg,eot} dist/fonts/",
     "copy:images": "copyfiles -f src/images/*.{jpg,png} dist/images/",
@@ -23,7 +23,9 @@
     "electron": "electron dist/",
     "dev": "npm-run-all --parallel sass:watch js:front:watch copy:js:electron:watch copy:html:watch electron",
     "predev": "npm run build",
-    "start": "npm run dev "
+    "start": "npm run dev ",
+    "prepackage:win": "echo \" npm run build \"",
+    "package:win": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=win32 --arch=x64 --icon=./Icon.png"
   },
   "author": "Benjamin Caradeuc <benjamin@caradeuc.info>",
   "license": "MIT",

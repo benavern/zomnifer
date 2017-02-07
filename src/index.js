@@ -1,17 +1,31 @@
+const {app, Menu, Tray} = require('electron');
+const path = require('path');
+
 const mb = require('menubar')({
     dir: __dirname,
-    showDockIcon: false,
+    transparent: true,
+    title: "Zomnifer",
+    icon: path.join(__dirname, '../Icon.png')
 });
 
 mb.on('ready', function ready () {
-  console.log('app is ready');
+  console.log([
+    '\n======================\n',
+    ' Welcome to Zomnifer!',
+    '\n======================\n'
+  ].join(''));
+
   // your app code here
-  mb.setOption('width', 620);
-  mb.setOption('minWidth', 570);
-  mb.setOption('height', 525);
-  mb.setOption('minHeight', 510);
+  mb.setOption('width', 490);
+  mb.setOption('height', 360);
+
+  mb.setOption('minWidth', 490);
+  mb.setOption('minHeight', 360);
   
-  mb.setOption('tooltip', 'Zomnifer');  
+  mb.setOption('tooltip', 'Zomnifer');
+  mb.setOption('showDowkIcon', false);
+  mb.setOption('icon', path.join(__dirname, '../Icon.png'))
+
 
 })
 
