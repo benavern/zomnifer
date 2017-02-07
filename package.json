@@ -1,6 +1,6 @@
 {
   "name": "zomnifer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "electron RS somnifero inspiration",
   "main": "dist/index.js",
   "scripts": {
@@ -23,9 +23,11 @@
     "dev": "npm-run-all --parallel sass:watch js:front:watch copy:html:watch electron",
     "predev": "npm run build",
     "start": "npm run dev ",
-    "prepackage:win": "echo \" npm run build \"",
+    "prepackage:win": "npm run build",
     "package:win": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=win32 --arch=x64 --icon=./Icon.png",
+    "prepackage:linux": "npm run build",
     "package:linux": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=linux --arch=x64 --icon=./Icon.png",
+    "prepackage:osx": "npm run build",
     "package:osx": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=darwin --arch=x64 --icon=./Icon.png"
   },
   "author": "Benjamin Caradeuc <benjamin@caradeuc.info>",
