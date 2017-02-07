@@ -8,6 +8,13 @@ const mb = require('menubar')({
     icon: path.join(__dirname, '../Icon.png')
 });
 
+var trayMenuTemplate =[
+  {
+    label: 'Quit Zomnifer',
+    role: 'quit'
+  }
+]
+
 mb.on('ready', function ready () {
   console.log([
     '\n======================\n',
@@ -25,6 +32,11 @@ mb.on('ready', function ready () {
   mb.setOption('tooltip', 'Zomnifer');
   mb.setOption('showDowkIcon', false);
   mb.setOption('icon', path.join(__dirname, '../Icon.png'))
+
+  var trayMenu = Menu.buildFromTemplate(trayMenuTemplate);
+
+  mb.tray.setContextMenu(trayMenu);
+
 
 
 })

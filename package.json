@@ -11,7 +11,6 @@
     "copy:fonts": "copyfiles -f src/fonts/*.{ttf,otf,woff,svg,eot} dist/fonts/",
     "copy:images": "copyfiles -f src/images/*.{jpg,png} dist/images/",
     "copy:js:electron": "copyfiles -f src/index.js dist/",
-    "copy:js:electron:watch": "onchange src/index.js -v -- npm run copy:js:electron",
     "copy:html": "copyfiles -f src/index.html dist/",
     "copy:html:watch": "onchange src/index.html -v -- npm run copy:html",
     "copy": "npm run copy:fonts && npm run copy:images && npm run copy:js:electron && npm run copy:html",
@@ -21,11 +20,13 @@
     "prebuild": "npm run clean",
     "postbuild": "sloc --format cli-table --keys total,source,comment ./src/",
     "electron": "electron dist/",
-    "dev": "npm-run-all --parallel sass:watch js:front:watch copy:js:electron:watch copy:html:watch electron",
+    "dev": "npm-run-all --parallel sass:watch js:front:watch copy:html:watch electron",
     "predev": "npm run build",
     "start": "npm run dev ",
     "prepackage:win": "echo \" npm run build \"",
-    "package:win": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=win32 --arch=x64 --icon=./Icon.png"
+    "package:win": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=win32 --arch=x64 --icon=./Icon.png",
+    "package:linux": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=linux --arch=x64 --icon=./Icon.png",
+    "package:osx": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=darwin --arch=x64 --icon=./Icon.png"
   },
   "author": "Benjamin Caradeuc <benjamin@caradeuc.info>",
   "license": "MIT",
