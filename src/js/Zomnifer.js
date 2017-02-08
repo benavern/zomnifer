@@ -1,9 +1,8 @@
 var $ = require('./zquery').$;
 var $$ = require('./zquery').$$;
 var Timer = require('./Timer')();
-// var shell = require('electron').shell;
-// var win = require('electron').remote;
-var command = require('child_process').exec;
+var shell = window.require('electron').shell;
+var ipc = window.require('electron').ipcRenderer;
 
 /**
  * General behavior of the application
@@ -15,87 +14,20 @@ module.exports = function() {
     var _actions = {
         '#off': {
             title: 'Switch off',
-            action: {
-                win32: function() {
-                    command('shutdown /p /f', function(error, stdout, stderr) {
-                        console.log('stdout: ' + stdout);
-                        console.log('stderr: ' + stderr);
-                        if (error !== null) {
-                            console.log('exec error: ' + error);
-                        }
-                    })
-                },
-                linux: function() {
-                    command('shutdown -p', function(error, stdout, stderr) {
-                        console.log('stdout: ' + stdout);
-                        console.log('stderr: ' + stderr);
-                        if (error !== null) {
-                            console.log('exec error: ' + error);
-                        }
-                    })
-                },
-                darwin: function() {
-                    command('shutdown -p', function(error, stdout, stderr) {
-                        console.log('stdout: ' + stdout);
-                        console.log('stderr: ' + stderr);
-                        if (error !== null) {
-                            console.log('exec error: ' + error);
-                        }
-                    })
-                }
-            }
+            action: ipc.send.bind(this, 'SHUTDOWN')
         },
         '#sleep': {
             title: 'Sleep',
-            action: {
-                win32: function() {
-                    command('shutdown /h', function(error, stdout, stderr) {
-                        console.log('stdout: ' + stdout);
-                        console.log('stderr: ' + stderr);
-                        if (error !== null) {
-                            console.log('exec error: ' + error);
-                        }
-                    })
-                },
-                linux: function() {
-                    command('pm-suspend', function(error, stdout, stderr) {
-                        console.log('stdout: ' + stdout);
-                        console.log('stderr: ' + stderr);
-                        if (error !== null) {
-                            console.log('exec error: ' + error);
-                        }
-                    })
-                },
-                darwin: function() {
-                    command('pmset sleepnow', function(error, stdout, stderr) {
-                        console.log('stdout: ' + stdout);
-                        console.log('stderr: ' + stderr);
-                        if (error !== null) {
-                            console.log('exec error: ' + error);
-                        }
-                    })
-                }
-            }
+            action: ipc.send.bind(this, 'SLEEP')
         },
         '#message': {
             title: 'Message',
             message: '',
-            action: {
-                win32: function() {
-                    alert(_actions['#message'].message || 'Zomnifer, by Benjamin Caradeuc.');
-                },
-                linux: function() {
-                    alert(_actions['#message'].message || 'Zomnifer, by Benjamin Caradeuc.');
-                },
-                darwin: function() {
-                    alert(_actions['#message'].message || 'Zomnifer, by Benjamin Caradeuc.');
-                }
+            action: function() {
+                alert(this.message || 'Zomnifer, by Benjamin Caradeuc.');
             }
         }
     }
-
-    // platform (win32 / linux / darwin)
-    var _platform = process.platform
 
     // timer shortcut
     var _timer = null;
@@ -172,7 +104,7 @@ module.exports = function() {
             })
             _timer.start(function() {
                 try {
-                    _actions[_activeState].action[_platform]()
+                    _actions[_activeState].action();
                 }
                 catch(e) {
                     console.log('[ERROR]', e);
@@ -216,7 +148,7 @@ module.exports = function() {
             // external links
             $('a[href^="http"]').addEventListener('click', function(e) {
                 e.preventDefault();
-                // shell.openExternal(e.target.href);
+                shell.openExternal(e.target.href);
             });
 
             // message update

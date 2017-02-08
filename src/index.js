@@ -1,5 +1,8 @@
-const {app, Menu, Tray} = require('electron');
+const {app, Menu, Tray, ipcMain: ipc } = require('electron');
 const path = require('path');
+const exec = require('child_process').exec;
+const commands = require('./commands/' + process.platform);
+
 
 const mb = require('menubar')({
     dir: __dirname,
@@ -8,13 +11,10 @@ const mb = require('menubar')({
     icon: path.join(__dirname, '../Icon.png')
 });
 
-var trayMenuTemplate =[
-  {
-    label: 'Quit Zomnifer',
-    role: 'quit'
-  }
-]
 
+/**
+ * The app is ready, I just set some things here so that it feels more Zomniferified
+ */
 mb.on('ready', function ready () {
   console.log([
     '\n======================\n',
@@ -22,7 +22,7 @@ mb.on('ready', function ready () {
     '\n======================\n'
   ].join(''));
 
-  // your app code here
+  // window size & decoration
   mb.setOption('width', 490);
   mb.setOption('height', 360);
 
@@ -33,11 +33,18 @@ mb.on('ready', function ready () {
   mb.setOption('showDowkIcon', false);
   mb.setOption('icon', path.join(__dirname, '../Icon.png'))
 
-  var trayMenu = Menu.buildFromTemplate(trayMenuTemplate);
-
+  // yes you can quit the app too ...
+  var trayMenu = Menu.buildFromTemplate([{label: 'Quit Zomnifer', role: 'quit'}]);
   mb.tray.setContextMenu(trayMenu);
-
-
 
 })
 
+
+
+/**
+ * 
+ * This is short but this is what all the app has been done for! :)
+ * 
+ */
+ipc.on('SHUTDOWN', exec.bind(this, commands.shutdown));
+ipc.on('SLEEP'   , exec.bind(this, commands.sleep));
