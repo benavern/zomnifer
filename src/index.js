@@ -31,10 +31,10 @@ mb.on('ready', function ready () {
   
   mb.setOption('tooltip', 'Zomnifer');
   mb.setOption('showDowkIcon', false);
-  mb.setOption('icon', path.join(__dirname, '../Icon.png'))
+  mb.setOption('icon', path.join(__dirname, '../Icon.png'));
 
   // yes you can quit the app too ...
-  var trayMenu = Menu.buildFromTemplate([{label: 'Quit Zomnifer', role: 'quit'}]);
+  const trayMenu = Menu.buildFromTemplate([{label: 'Quit Zomnifer', role: 'quit'}]);
   mb.tray.setContextMenu(trayMenu);
 
 })
@@ -51,11 +51,13 @@ let messageWindow = null;
 
 ipc.on('SHUTDOWN', () => exec(commands.shutdown, log));
 ipc.on('SLEEP'   , () => exec(commands.sleep, log));
-ipc.on('MESSAGE' , function(e, mess) {
+ipc.on('MESSAGE' , (e, mess) => {
   messageWindow = new BrowserWindow({
     width: 400, 
     height: 300,
   })
+
+  console.log('[MESSAGE]', mess);
   messageWindow.setMenu(null);
   messageWindow.loadURL(`file://${ __dirname }/message.html?message=${ encodeURIComponent(mess) }`)
   messageWindow.on('closed', () => {

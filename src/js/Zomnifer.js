@@ -22,7 +22,9 @@ module.exports = function() {
         },
         '#message': {
             title: 'Message',
-            action: ipc.send.bind(null, 'MESSAGE', _message)
+            action: function() { // bind doesn't use the _message updated ...
+                ipc.send('MESSAGE', _message)
+            } 
         }
     }
 
