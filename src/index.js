@@ -43,8 +43,17 @@ mb.on('ready', function ready () {
 
 /**
  * 
- * This is short but this is what all the app has been done for! :)
+ * This is short but is what all the app has been done for! :)
  * 
  */
-ipc.on('SHUTDOWN', exec.bind(this, commands.shutdown));
-ipc.on('SLEEP'   , exec.bind(this, commands.sleep));
+ipc.on('SHUTDOWN', () => exec(commands.shutdown, log));
+ipc.on('SLEEP'   , () => exec(commands.sleep, log));
+
+function log(err, stdout, stderr) {
+  if(err) {
+    console.log('[ERROR]', err);
+    return;
+  }
+  console.log('[STDOUT]', stdout);
+  console.log('[STDERR]', stderr);
+}
