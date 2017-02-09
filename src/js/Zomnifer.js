@@ -9,23 +9,20 @@ var ipc = window.require('electron').ipcRenderer;
  * 
  */
 module.exports = function() {
-
+    var _message = '';
     // 3 different actions
     var _actions = {
         '#shutdown': {
             title: 'Switch off',
-            action: ipc.send.bind(this, 'SHUTDOWN')
+            action: ipc.send.bind(null, 'SHUTDOWN')
         },
         '#sleep': {
             title: 'Sleep',
-            action: ipc.send.bind(this, 'SLEEP')
+            action: ipc.send.bind(null, 'SLEEP')
         },
         '#message': {
             title: 'Message',
-            message: '',
-            action: function() {
-                alert(this.message || 'Zomnifer, by Benjamin Caradeuc.');
-            }
+            action: ipc.send.bind(null, 'MESSAGE', _message)
         }
     }
 
@@ -63,8 +60,8 @@ module.exports = function() {
 
     // update message on input tiped
     var _updateMessage = function()  {
-        _actions['#message'].message = _textArea.value;
-        console.log('[MESSAGE]', _actions['#message'].message);
+        _message = _textArea.value;
+        console.log('[MESSAGE]', _message);
     }
 
     return {
@@ -146,9 +143,11 @@ module.exports = function() {
             $('.btn-wrapper .btn.stop').addEventListener('click', app.stop.bind(app));
 
             // external links
-            $('a[href^="http"]').addEventListener('click', function(e) {
-                e.preventDefault();
-                shell.openExternal(e.target.href);
+            $$('a[href^="http"]').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    shell.openExternal(link.href);
+                });
             });
 
             // message update

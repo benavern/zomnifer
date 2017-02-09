@@ -1,4 +1,4 @@
-const {app, Menu, Tray, ipcMain: ipc } = require('electron');
+const {app, Menu, Tray, ipcMain: ipc, BrowserWindow } = require('electron');
 const path = require('path');
 const exec = require('child_process').exec;
 const commands = require('./commands/' + process.platform);
@@ -46,8 +46,22 @@ mb.on('ready', function ready () {
  * This is short but is what all the app has been done for! :)
  * 
  */
+
+let messageWindow = null;
+
 ipc.on('SHUTDOWN', () => exec(commands.shutdown, log));
 ipc.on('SLEEP'   , () => exec(commands.sleep, log));
+ipc.on('MESSAGE' , function(e, mess) {
+  messageWindow = new BrowserWindow({
+    width: 400, 
+    height: 300,
+  })
+  messageWindow.setMenu(null);
+  messageWindow.loadURL(`file://${ __dirname }/message.html?message=${ encodeURIComponent(mess) }`)
+  messageWindow.on('closed', () => {
+    messageWindow = null
+  })
+});
 
 function log(err, stdout, stderr) {
   if(err) {
