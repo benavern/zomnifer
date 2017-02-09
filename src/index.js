@@ -23,11 +23,11 @@ mb.on('ready', function ready () {
   ].join(''));
 
   // window size & decoration
-  mb.setOption('width', 490);
-  mb.setOption('height', 360);
+  mb.setOption('width', 500);
+  mb.setOption('height', 330);
 
-  mb.setOption('minWidth', 490);
-  mb.setOption('minHeight', 360);
+  mb.setOption('minWidth', 500);
+  mb.setOption('minHeight', 330);
   
   mb.setOption('tooltip', 'Zomnifer');
   mb.setOption('showDowkIcon', false);

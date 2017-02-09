@@ -12,7 +12,7 @@ module.exports = function() {
 
     // 3 different actions
     var _actions = {
-        '#off': {
+        '#shutdown': {
             title: 'Switch off',
             action: ipc.send.bind(this, 'SHUTDOWN')
         },
@@ -158,7 +158,7 @@ module.exports = function() {
             _timer = Timer.init();
 
             // init app
-            this.navigate('#welcome');
+            this.navigate('#shutdown');
 
         }
     }
