@@ -34,7 +34,19 @@ mb.on('ready', function ready () {
   mb.setOption('icon', path.join(__dirname, '../Icon.png'));
 
   // yes you can quit the app too ...
-  const trayMenu = Menu.buildFromTemplate([{label: 'Quit Zomnifer', role: 'quit'}]);
+  const trayMenu = Menu.buildFromTemplate([
+    {
+      label: 'Show Zomnifer',
+      click: () => mb.showWindow()
+    },
+    {
+      type: 'separator'
+    },
+    {
+      label: 'Quit Zomnifer',
+      role: 'quit'
+    },
+  ]);
   mb.tray.setContextMenu(trayMenu);
 
 })
