@@ -1,4 +1,4 @@
 module.exports = {
-    shutdown: 'shutdown -P',
-    sleep:    'pm-suspend'
+    shutdown: 'shutdown -P now',
+    sleep:    'systemctl suspend'
 }
