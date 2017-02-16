@@ -10,7 +10,7 @@ var ipc = window.require('electron').ipcRenderer;
  */
 module.exports = function() {
     var _message = '';
-    // 3 different actions
+    // 4 different actions
     var _actions = {
         '#shutdown': {
             title: 'Switch off',
@@ -19,6 +19,10 @@ module.exports = function() {
         '#sleep': {
             title: 'Sleep',
             action: ipc.send.bind(null, 'SLEEP')
+        },
+        '#restart': {
+            title: 'Restart',
+            action: ipc.send.bind(null, 'RESTART')
         },
         '#message': {
             title: 'Message',

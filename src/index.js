@@ -63,6 +63,7 @@ let messageWindow = null;
 
 ipc.on('SHUTDOWN', () => exec(commands.shutdown, log));
 ipc.on('SLEEP'   , () => exec(commands.sleep, log));
+ipc.on('RESTART' , () => exec(commands.restart, log));
 ipc.on('MESSAGE' , (e, mess) => {
   messageWindow = new BrowserWindow({
     width: 400, 
