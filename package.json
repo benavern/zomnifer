@@ -26,9 +26,9 @@
     "prepackage:win": "npm run build",
     "package:win": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=win32 --arch=x64 --icon=./Icon.png",
     "prepackage:linux": "npm run build",
-    "package:linux": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=linux --arch=x64 --icon=./Icon.png",
+    "package:linux": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/linux/ --platform=linux --arch=x64 --icon=./Icon.png",
     "prepackage:osx": "npm run build",
-    "package:osx": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/windows/ --platform=darwin --arch=x64 --icon=./Icon.png"
+    "package:osx": "electron-packager . zomnifer --ignore=src --ignore=packages --overwrite --out=packages/osx/ --platform=darwin --arch=x64 --icon=./Icon.png"
   },
   "author": "Benjamin Caradeuc <benjamin@caradeuc.info>",
   "license": "MIT",
