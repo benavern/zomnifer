@@ -6,7 +6,7 @@ const commands = require('./commands/' + process.platform);
 
 const mb = require('menubar')({
     dir: __dirname,
-    transparent: true,
+    transparent: process.platform !== 'linux',
     title: "Zomnifer",
     icon: path.join(__dirname, '../Icon.png')
 });
