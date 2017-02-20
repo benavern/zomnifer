@@ -36,9 +36,9 @@ followed by clicking the "START" button on the lower part of the main window.
 
 Available on :
 
-* [x] Windows
-* [x] Linux
-* [ ] MacOs
+* [x] Windows (tested on Windows 10)
+* [x] Linux   (tested on elemetary os)
+* [ ] MacOs   (tests fail => need help)
 
 
 ## Contribute
@@ -52,6 +52,13 @@ Available on :
 ### Package:
 
 * `npm run package:<platform>` (`win` / `linux` / `osx`)
+
+### Issues / help
+
+Don't hesitate to pull request, feature request, comment, report issues.
+
+If you like my work, don't hesitate to [buy me some beer](https://www.paypal.me/benjamincaradeuc/5) :)
+
 
 ## License
 
