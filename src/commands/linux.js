@@ -2,5 +2,5 @@
 module.exports = {
     shutdown: 'systemctl --no-wall poweroff',
     sleep:    'systemctl suspend',
-    resart:   'systemctl --no-wall reboot'
+    restart:   'systemctl --no-wall reboot'
 }

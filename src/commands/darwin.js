@@ -2,5 +2,5 @@
 module.exports = {
     shutdown: 'osascript -e \'tell app "System Events" to shut down\'',
     sleep:    'pmset sleepnow', // osascript -e 'tell app "System Events" to sleep'
-    resart:   'osascript -e \'tell app "System Events" to restart\''
+    restart:   'osascript -e \'tell app "System Events" to restart\''
 }
