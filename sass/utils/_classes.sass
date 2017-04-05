@@ -1,0 +1,38 @@
+.container
+    width: 100%
+    max-width: $grid-max-width
+    padding: $gutter-width
+    margin: 0 auto
+
+.text-right
+    text-align: right
+.text-center
+    text-align: center
+.text-justify
+    text-align: justify
+
+.padding
+    padding: 1rem
+.v-padding
+    padding: 1rem 0
+.padding-lg
+    padding: 3rem
+.v-padding-lg
+    padding: 3rem 0
+
+.anim-fadein
+    animation: 2s fadeIn
+
+.anim-slideup
+    animation: 1s slideUp
+
+
+// colors
+$color-list: ( primary: $primary-color, success: $success-color, info: $info-color, warning: $warning-color, danger: $danger-color, "black": $black, "white": $white, "gray": $gray, "facebook": $facebook-color, "twitter": $twitter-color)
+@each $color-name, $color-value in $color-list
+    .bg-#{$color-name}-color
+        background-color: $color-value
+    .text-#{$color-name}-color
+        color: $color-value
+        hr
+            border-top-color: $color-value

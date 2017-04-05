@@ -1,0 +1,38 @@
+.btn
+    background: transparent
+    display: inline-block
+    padding: .6em 1em
+    text-decoration: none
+    font-weight: bold
+
+    transition: all .3s
+
+    &.btn-lg
+        font-size: 1.3rem
+    &.btn-sm
+        font-size: .8rem
+
+
+    &.btn-link
+        color: $primary-color
+
+        &:link:hover
+            text-decoration: underline
+
+    &.btn-outline
+        color: $primary-color
+        border: .15em solid $primary-color
+        border-radius: .3em
+
+        &:hover
+            color: $white
+            background-color: $primary-color
+            text-decoration: none!important
+    
+    &.btn-white
+        color: $white
+        border-color: $white
+
+        &.btn-outline:hover
+            color: $primary-color
+            background-color: $white

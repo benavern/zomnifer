@@ -1,0 +1,73 @@
+=clearfix
+    *zoom: 1
+    &:before, 
+    &:after 
+        content: " "
+        display: table
+
+    &:after
+        clear: both
+
+.clearfix
+    +clearfix
+
+.row
+    margin: 0 (-$gutter-width)
+    +clearfix
+
+[class*=col-]
+    float: left
+    padding: $gutter-width
+    width: 100%
+
+.pull-0
+    margin-left: 0
+    
+@for $i from 1 through $grid-columns
+    .col-#{$i}
+        width: 100% / $grid-columns * $i
+    .pull-#{$i}
+        margin-left: 100% / $grid-columns * $i
+
+
+@media #{$breakpoint-large}
+    .pull-lg-0
+        margin-left: 0
+    .hide-lg
+        display: none
+    .show-lg
+        display: initial
+    @for $i from 1 through $grid-columns
+        .col-lg-#{$i}
+            width: 100% / $grid-columns * $i
+        .pull-lg-#{$i}
+            margin-left: 100% / $grid-columns * $i
+
+
+@media #{$breakpoint-medium}
+    .pull-md-0
+        margin-left: 0
+    .hide-md
+        display: none
+    .show-md
+        display: initial
+    @for $i from 1 through $grid-columns
+        .col-md-#{$i}
+            width: 100% / $grid-columns * $i
+        .pull-md-#{$i}
+            margin-left: 100% / $grid-columns * $i
+        
+
+@media #{$breakpoint-small}
+    .pull-sm-0
+        margin-left: 0
+    .hide-sm
+        display: none
+    .show-sm
+        display: initial
+    @for $i from 1 through $grid-columns
+        .col-sm-#{$i}
+            width: 100% / $grid-columns * $i
+        .pull-sm-#{$i}
+            margin-left: 100% / $grid-columns * $i
+        

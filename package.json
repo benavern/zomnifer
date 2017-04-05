@@ -1,0 +1,27 @@
+{
+  "name": "somnifer-website",
+  "version": "1.0.0",
+  "description": "the showcase website for zomnifer software",
+  "scripts": {
+    "sass": "node-sass -i --output-style=compressed --source-map=true sass/styles.sass css/styles.css",
+    "sass:watch": "npm run sass -- -w",
+    "serve": "lite-server .",
+    "dev": "npm-run-all --parallel sass:watch serve",
+    "start": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benavern/zomnifer.git"
+  },
+  "author": "Benjamin Caradeuc <benjamin@caradeuc.info> (https://caradeuc.info)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benavern/zomnifer/issues"
+  },
+  "homepage": "https://github.com/benavern/zomnifer#readme",
+  "devDependencies": {
+    "lite-server": "^2.3.0",
+    "node-sass": "^4.5.2",
+    "npm-run-all": "^4.0.2"
+  }
+}

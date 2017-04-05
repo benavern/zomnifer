@@ -1,0 +1,52 @@
+@font-face 
+    font-family: 'Comfortaa'
+    src: url('../fonts/Comfortaa.ttf') format('truetype')
+
+*, *:before, *:after
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+::root,
+html
+    font-size: $base-font-size
+    
+    @media #{$breakpoint-medium}
+        font-size: $medium-font-size
+    
+    @media #{$breakpoint-small}
+        font-size: $small-font-size
+
+body
+    font-family: 'Comfortaa', sans-serif
+    color: $black
+    background-color: $white
+    line-height: 1.6
+
+h1, .h1
+    font-size: 2.8rem
+    margin: .4em 0 .6em
+h2, .h2
+    font-size: 2.3rem
+    margin: .4em 0 .6em
+h3, .h3
+    font-size: 2rem
+    margin: .4em 0 .6em
+h4, .h4
+    font-size: 1.5rem
+    margin: .4em 0 .6em
+h5, .h5
+    font-size: 1.2rem
+    margin: .4em 0 .6em
+h6, .h6
+    font-size: 1rem
+    margin: .4em 0 .6em
+
+p
+    margin: .5em
+
+a
+    color: $primary-color
+    text-decoration: none
+    &:link:hover
+        text-decoration: underline
