@@ -1,6 +1,6 @@
 # Zomnifer
 
-### *Work in progress ...*
+### [NEW] [Website](http://blog.caradeuc.info/zomnifer/)
 
 ![SCREENSHOT](./zomnifer.gif)
 
@@ -38,7 +38,7 @@ Available on :
 
 * [x] Windows (tested on Windows 10)
 * [x] Linux   (tested on elemetary os)
-* [ ] MacOs   (tests fail => need help)
+* [x] MacOs   (tested on macbook)
 
 
 ## Contribute
